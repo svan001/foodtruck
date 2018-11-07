@@ -22,8 +22,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("/alwaysdenied").denyAll()
                 // TODO Needed for H2 console => DEV TO REMOVE
                 .and().authorizeRequests().antMatchers("/console/**").permitAll()
+                .and().authorizeRequests().antMatchers("/admin").hasAuthority("ADMIN")
+                .and().authorizeRequests().antMatchers("/manager").hasAnyAuthority("ADMIN", "MANAGER")
                 .and().authorizeRequests().antMatchers("/test").fullyAuthenticated()
-                .and().authorizeRequests().antMatchers("/**").permitAll()
+                .and().authorizeRequests().antMatchers("/login").permitAll()
+                .and().authorizeRequests().antMatchers("/**").fullyAuthenticated()
                 // basics
                 .and().formLogin()
                 .and().httpBasic()

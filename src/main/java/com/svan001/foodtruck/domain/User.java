@@ -6,10 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,9 +24,17 @@ public class User {
     private String username;
     private String encryptedPassword;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserRole> roles = new ArrayList<>();
+
     public User(String username, String encryptedPassword) {
         this.username = username;
         this.encryptedPassword = encryptedPassword;
+    }
+
+    public void addRole(UserRole userRole) {
+        userRole.setUser(this);
+        getRoles().add(userRole);
     }
 
 }

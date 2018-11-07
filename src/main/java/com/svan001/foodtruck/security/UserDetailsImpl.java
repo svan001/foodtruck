@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 public class UserDetailsImpl implements UserDetails {
@@ -18,11 +19,13 @@ public class UserDetailsImpl implements UserDetails {
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
 
-    private Collection<? extends GrantedAuthority> authorities = null;
+    private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(String username, String password) {
+    public UserDetailsImpl(String username, String password, List<? extends GrantedAuthority> authorities) {
         this.username = username;
         this.password = password;
+
+        this.authorities = authorities;
     }
 
 }

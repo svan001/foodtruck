@@ -14,4 +14,14 @@ public class TemplateController {
         return "hello";
     }
 
+    @RequestMapping("admin")
+    public String helloAdmin(Model model) {
+        return "admin";
+    }
+
+    @RequestMapping("manager")
+    public String helloManager(Model model) {
+        return "manager";
+    }
+
 }
