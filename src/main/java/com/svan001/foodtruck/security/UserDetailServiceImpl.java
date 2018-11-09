@@ -37,7 +37,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     private List<SimpleGrantedAuthority> convertAuthorities(User principal) {
         return principal.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getRole().getLabel()))
+                // /!\ map to getAuthorityName to add "ROLE_" when needed 
+                .map(role -> new SimpleGrantedAuthority(role.getRole().getAuthorityName()))
                 .collect(Collectors.toList());
     }
 }

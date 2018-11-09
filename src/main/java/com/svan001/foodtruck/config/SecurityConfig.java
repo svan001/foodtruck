@@ -1,5 +1,6 @@
 package com.svan001.foodtruck.config;
 
+import com.svan001.foodtruck.util.enums.Role;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +23,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("/alwaysdenied").denyAll()
                 // TODO Needed for H2 console => DEV TO REMOVE
                 .and().authorizeRequests().antMatchers("/console/**").permitAll()
-                .and().authorizeRequests().antMatchers("/admin").hasAuthority("ADMIN")
-                .and().authorizeRequests().antMatchers("/manager").hasAnyAuthority("ADMIN", "MANAGER")
+                .and().authorizeRequests().antMatchers("/admin").hasRole(Role.ADMIN.getLabel())
+                .and().authorizeRequests().antMatchers("/manager").hasAnyRole(Role.ADMIN.getLabel(), Role.MANAGER.getLabel())
+                .and().authorizeRequests().antMatchers("/auth1").hasAuthority(Role.AUTH_1.getLabel())
                 .and().authorizeRequests().antMatchers("/test").fullyAuthenticated()
                 .and().authorizeRequests().antMatchers("/login").permitAll()
                 .and().authorizeRequests().antMatchers("/**").fullyAuthenticated()

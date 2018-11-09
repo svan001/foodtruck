@@ -38,6 +38,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
         User manager1 = new User("manager1", "admin");
         manager1.addRole(new UserRole(manager1, Role.MANAGER));
+        manager1.addRole(new UserRole(manager1, Role.AUTH_1));
 
         User customer1 = new User("customer1", "admin");
         customer1.addRole(new UserRole(customer1, Role.CUSTOMER));
